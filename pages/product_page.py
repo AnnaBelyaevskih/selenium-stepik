@@ -22,30 +22,28 @@ class ProductPage(BasePage):
             )
         )
 
-    def should_be_product_name_in_success_message(self, product_name):
-        success_message = self.browser.find_element(
-            *ProductPageLocators.SUCCESS_MESSAGE
-        ).text
-
-        assert product_name in success_message
-
-    def should_be_price_in_success_message(self, product_price):
-        price_message = self.browser.find_element(
-            *ProductPageLocators.PRICE_MESSAGE
-        ).text
-
-        assert product_price == price_message
-
-    def get_product_name(self):
+    def should_be_product_name_in_success_message(self):
         product_name = self.browser.find_element(
-            *ProductPageLocators.ITEM_NAME
+            *ProductPageLocators.PRODUCT_NAME
         ).text
 
-        return product_name
+        product_name_in_message = self.browser.find_element(
+            *ProductPageLocators.PRODUCT_NAME_IN_MESSAGE
+        ).text
 
-    def get_product_price(self):
+        assert product_name == product_name_in_message, (
+            "Wrong product name in success message"
+        )
+
+    def should_be_price_in_success_message(self):
         product_price = self.browser.find_element(
-            *ProductPageLocators.PRICE
+            *ProductPageLocators.PRODUCT_PRICE
         ).text
 
-        return product_price
+        price_in_message = self.browser.find_element(
+            *ProductPageLocators.PRICE_IN_MESSAGE
+        ).text
+
+        assert product_price == price_in_message, (
+            "Wrong price in success message"
+        )
